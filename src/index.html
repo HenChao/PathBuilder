@@ -1,0 +1,73 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>PathBuilder</title>
+
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+		<script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+		<script src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js"></script>
+		<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.1.2/cytoscape-dagre.js"></script>
+		
+		<script src="./script.js"></script>
+		<script src="./util.js"></script>
+		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+		<link href="./style.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">
+				<h1>PathBuilder</h1>
+			</div>
+			<div class="col-md-3 col-md-offset-7" id="right_panel">
+				<button class="btn btn-default btn-sm" onClick="createNewNode();">New Node</button>
+				<button class="btn btn-default btn-sm" onClick="saveToJSON();">Export JSON</button>
+				<button class="btn btn-default btn-sm" onClick="clearNodeForm(); hideNodeForm();">Clear Form</button>
+				<button class="btn btn-default btn-sm" onClick="deleteNode(); clearNodeForm(); hideNodeForm();">Delete Node</button>
+				<form id="node-form" action="#">
+				<input type="hidden" id="node-form-cynode-id"></input>
+				<div class="form-group">
+					<div class="input-group"><span class="input-group-addon">ID</span><input class="form-control" type="text" id="node-form-id"></input></div>
+				</div>
+					<div id="node-form-text" style="display: none;" class="form-group">
+						<label>Text</label>
+						<textarea class="form-control" rows="8" id="node-form-textarea"></textarea>
+					</div>
+					<div id="node-form-options" style="display: none;" class="form-group">
+					<p>Options</p>
+						<label>A</label>						
+						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-a-text"></input></div>
+						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-a-next"></input></div>
+						<label>B</label>
+						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-b-text"></input></div>
+						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-b-next"></input></div>
+						<label>C</label>
+						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-c-text"></input></div>
+						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-c-next"></input></div>
+						<label>D</label>
+						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-d-text"></input></div>
+						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-d-next"></input></div>
+					</div>
+					<div id="node-form-stats" style="display: none;" class="form-group">
+					<p>Change Stats</p>
+						<div class="input-group"><span class="input-group-addon">Set Health</span><input class="form-control" type="text" id="node-form-stats-sethealth"></input></div>
+						<div class="input-group"><span class="input-group-addon">Set Money</span><input class="form-control" type="text" id="node-form-stats-setmoney"></input></div>
+					</div>
+					<div id="node-form-jump" style="display: none;" class="form-group">
+					<div class="input-group"><span class="input-group-addon">Jump</span><input class="form-control" type="text" id="node-form-jump-val"></input></div>
+					</div>
+					<button class="btn btn-default btn-sm" onclick='saveThisNode()'>Save</button>
+				</form>
+			</div>
+		</div>
+		</div>
+
+		<div id="cy"></div>
+	</body>
+
+</html>
