@@ -29,6 +29,7 @@
 				<button class="btn btn-default btn-sm" onClick="saveToJSON();">Export JSON</button>
 				<button class="btn btn-default btn-sm" onClick="clearNodeForm(); hideNodeForm();">Clear Form</button>
 				<button class="btn btn-default btn-sm" onClick="deleteNode(); clearNodeForm(); hideNodeForm();">Delete Node</button>
+				<button class="btn btn-default btn-sm" onClick="rearrangeNodes(); clearNodeForm(); hideNodeForm();">Rearrange Nodes</button>
 				<form id="node-form" action="#">
 				<input type="hidden" id="node-form-cynode-id"></input>
 				<div class="form-group">
@@ -38,8 +39,8 @@
 						<label>Text</label>
 						<textarea class="form-control" rows="8" id="node-form-textarea"></textarea>
 					</div>
+					<a onclick="$('#node-form-options').toggle();"><p>Options</p></a>
 					<div id="node-form-options" style="display: none;" class="form-group">
-					<p>Options</p>
 						<label>A</label>						
 						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-a-text"></input></div>
 						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-a-next"></input></div>
@@ -53,11 +54,12 @@
 						<div class="input-group"><span class="input-group-addon">Text</span><input class="form-control" type="text" id="node-form-options-d-text"></input></div>
 						<div class="input-group"><span class="input-group-addon">Next</span><input class="form-control" type="text" id="node-form-options-d-next"></input></div>
 					</div>
+					<a onclick="$('#node-form-stats').toggle();"><p>Change Stats</p></a>
 					<div id="node-form-stats" style="display: none;" class="form-group">
-					<p>Change Stats</p>
 						<div class="input-group"><span class="input-group-addon">Set Health</span><input class="form-control" type="text" id="node-form-stats-sethealth"></input></div>
 						<div class="input-group"><span class="input-group-addon">Set Money</span><input class="form-control" type="text" id="node-form-stats-setmoney"></input></div>
 					</div>
+					<a onclick="$('#node-form-jump').toggle();"><p>Jump</p></a>
 					<div id="node-form-jump" style="display: none;" class="form-group">
 					<div class="input-group"><span class="input-group-addon">Jump</span><input class="form-control" type="text" id="node-form-jump-val"></input></div>
 					</div>

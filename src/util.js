@@ -77,6 +77,7 @@ $(function(){
 	cy.on('click', 'node', function(evt){
 		$('#node-form-options').hide();
 		$('#node-form-jump').hide();
+		$('#node-form-stats').hide();
 		clearNodeForm();
 		
 		var node = evt.cyTarget;
@@ -257,14 +258,14 @@ function saveThisNode(){
 			node.data('changeStat', stats);
 		}
 		
+		// Remove all pre-existing edges
+		if(cy.$('edge[source="' + $('#node-form-id').val() +'"]').length == 1){
+			cy.remove(cy.$('edge[source="' + $('#node-form-id').val() +'"]'));
+		}
+		node.data('jump', $('#node-form-jump-val').val());
+		node.data('options', generateOptionJSONData());
+		
 		if ($('#node-form-jump-val').val() != ""){
-			node.data('jump', $('#node-form-jump-val').val());
-			
-			// Remove all pre-existing jumps
-			if(cy.$('edge[source="' + $('#node-form-id').val() +'"]').length == 1){
-				cy.remove(cy.$('edge[source="' + $('#node-form-id').val() +'"]'));
-			}
-			
 			// Make edge to new jump
 			cy.add({
 				group: "edges",
@@ -276,13 +277,6 @@ function saveThisNode(){
 		};
 		
 		if ($('#node-form-options-a-text').val() != ""){
-			node.data('options', generateOptionJSONData());
-			
-			// Remove all previous edges
-			if(cy.$('edge[source="' + $('#node-form-id').val() +'"]').length > 0){
-				cy.remove(cy.$('edge[source="' + $('#node-form-id').val() +'"]'));
-			}
-			
 			// Add new edges
 			cy.add({
 				group: "edges",
@@ -343,12 +337,6 @@ function saveToJSON(){
 	}
 	
 	var output = "";
-	output += 'stages={';
-	for(elm in stages){
-		output += '"'+elm+'": '+stages[elm]+',';
-	}
-	output += '};';
-	
 	for(records in nodeRecords){
 		output += records + '={';
 		for(node in nodeRecords[records]){
@@ -356,6 +344,11 @@ function saveToJSON(){
 		}
 		output += '};';
 	}
+	output += 'stages={';
+	for(elm in stages){
+		output += '"'+elm+'": '+stages[elm]+',';
+	}
+	output += '};';
 	
 	var a = document.createElement("a");
 	var file = new Blob([output], {type:'text/plain'});
@@ -363,4 +356,8 @@ function saveToJSON(){
 	a.download = "script.js";
 	a.click();
 	
+};
+
+function rearrangeNodes(){
+	cy.elements().layout({ name: 'dagre' });
 };
